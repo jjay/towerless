@@ -2,7 +2,7 @@ tool
 
 extends Control
 
-const grayscaleMaterialShader = preload('GrayscaleMaterialShader.tres')
+const grayscaleMaterialShader = preload('shaders/GrayscaleMaterialShader.tres')
 
 const HEALTH = 'health'
 const ATTACK = 'attack'
@@ -15,10 +15,10 @@ export var enabled = true setget set_enabled
 onready var texture_frame = get_node("TextureFrame")
 
 var textures = {
-	HEALTH: load('res://blue.png'),
-	ATTACK: load('res://green.png'),
-	DEFENCE: load('res://orange.png'),
-	SPEED: load('res://purp.png'),
+	HEALTH: load('res://assets/blue.png'),
+	ATTACK: load('res://assets/green.png'),
+	DEFENCE: load('res://assets/orange.png'),
+	SPEED: load('res://assets/purp.png'),
 }
 
 func update_state():
