@@ -1,12 +1,109 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://creep.gd" type="Script" id=1]
 [ext_resource path="res://characters.png" type="Texture" id=2]
 
-
 [sub_resource type="CanvasItemMaterial" id=1]
 
 shader/shading_mode = 0
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "attack_left"
+length = 1.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites/weapon:transform/pos")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.7, 1, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( -1, 0 ), Vector2( 4.58061, 5.79525 ), Vector2( -4.8635, -7.19039 ), Vector2( -1, 0 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites/weapon:transform/rot")
+tracks/1/interp = 2
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.7, 1, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0.0, -51.4837, 31.2194, 0.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprites/weapon:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0, 0.7, 1, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ] }
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "attack_right"
+length = 1.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites/weapon:transform/pos")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.7, 1, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( -1, 0 ), Vector2( -3.68299, -6.43916 ), Vector2( 5.33184, 7.61968 ), Vector2( -1, 0 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites/weapon:transform/rot")
+tracks/1/interp = 2
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.7, 1, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0.0, 26.3656, -53.9165, 0.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprites/weapon:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0, 0.7, 1, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ] }
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "rest"
+length = 0.01
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites/weapon:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( -1, 0 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites/weapon:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprites/weapon:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1, 1 ) ] }
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "walk"
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:transform/pos")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.2 ), "transitions":FloatArray( 1, 3.4822 ), "update":0, "values":[ Vector2( 0, -18 ), Vector2( 0, -27.2529 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 0.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprites:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 2, 2 ), Vector2( 2, 2 ) ] }
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 32.0
 
 [node name="crip" type="PathFollow2D"]
 
@@ -18,7 +115,13 @@ cubic_interp = true
 loop = false
 lookahead = 4.0
 script/script = ExtResource( 1 )
-speed = 40
+team = 0
+speed = 80
+damage = 30
+health = 100
+attack_delay = 1.0
+body_radius = 32.0
+aggro_radius = 120.0
 body_idx = 6
 pants_idx = 10
 armor_idx = 113
@@ -27,9 +130,25 @@ hat_idx = -1
 shield_idx = 1
 weapon_idx = 0
 
+[node name="tile" type="Polygon2D" parent="."]
+
+z/z = -1
+polygon = Vector2Array( -23.7898, -0.807156, -16.8959, 3.14119, -10.4407, 3.83059, 1.09101, 4.20662, 9.80243, 3.39188, 18.2005, 0.696976, 22.2742, -3.75275, 22.6502, -8.07713, 20.7701, -10.8974, 16.195, -13.7176, 8.23563, -15.8485, -4.23613, -15.7858, -12.4462, -14.5324, -18.7134, -12.0255, -24.7299, -6.88635 )
+uv = Vector2Array(  )
+color = Color( 0.0288086, 0.921875, 0, 0.387296 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
 [node name="sprites" type="Node2D" parent="."]
 
 material/material = SubResource( 1 )
+transform/pos = Vector2( 0, -18.1858 )
 transform/scale = Vector2( 2, 2 )
 
 [node name="body" type="Sprite" parent="sprites"]
@@ -94,9 +213,55 @@ frame = 42
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/attack_left = SubResource( 6 )
+anims/attack_right = SubResource( 4 )
+anims/rest = SubResource( 5 )
+anims/walk = SubResource( 7 )
+next/attack_left = ""
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "walk"
+
+[node name="aggro" type="Area2D" parent="."]
+
+transform/pos = Vector2( 0, -16 )
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/mask = 8
+
+[node name="shape" type="CollisionShape2D" parent="aggro"]
+
+visibility/visible = false
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="body" type="Area2D" parent="."]
+
+transform/pos = Vector2( 0, -16 )
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 2
+collision/mask = 4
+
+[node name="shape" type="CollisionShape2D" parent="body"]
+
+visibility/visible = false
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
 
 
