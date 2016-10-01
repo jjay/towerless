@@ -3,22 +3,26 @@
 [ext_resource path="res://factory.tscn" type="PackedScene" id=1]
 [ext_resource path="res://factory.gd" type="Script" id=2]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="YSort"]
+
+sort/enabled = true
 
 [node name="top-factory" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( 299.568, 78.3328 )
 script/script = ExtResource( 2 )
+team = 0
 crip_delay = 1.0
-wave_size = 4.0
+wave_size = 3.0
 wave_delay = 10.0
 
 [node name="bottom-factory" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( 347.181, 1034.68 )
-
-[node name="bottom-factory-1" parent="." instance=ExtResource( 1 )]
-
-transform/pos = Vector2( 347.181, 1034.68 )
+script/script = ExtResource( 2 )
+team = 1
+crip_delay = 1.0
+wave_size = 3.0
+wave_delay = 10.0
 
 
