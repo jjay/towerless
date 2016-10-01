@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://Card.gd" type="Script" id=1]
+[ext_resource path="res://shaders/GrayscaleMaterialShader.tres" type="Shader" id=2]
+[ext_resource path="res://assets/blue.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+shader/shader = ExtResource( 2 )
+shader/shading_mode = 0
+shader_param/grayscale = false
+
+[node name="Control" type="Control"]
+
+rect/min_size = Vector2( 140, 140 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 140.0
+script/script = ExtResource( 1 )
+card_type = "health"
+enabled = true
+
+[node name="TextureFrame" type="TextureFrame" parent="."]
+
+material/material = SubResource( 1 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 140.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 0
+
+
