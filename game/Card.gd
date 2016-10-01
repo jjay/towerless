@@ -1,6 +1,6 @@
 tool
 
-extends Control
+extends Button
 
 const grayscaleMaterialShader = preload('shaders/GrayscaleMaterialShader.tres')
 
@@ -9,8 +9,13 @@ const ATTACK = 'attack'
 const DEFENCE = 'defence'
 const SPEED = 'speed'
 
+var cooldown = 30
+
 export(String, "health", "attack", "defence", "speed") var card_type = HEALTH setget set_card_type
 export var enabled = true setget set_enabled
+
+signal selected(card)
+signal deselected(card)
 
 onready var texture_frame = get_node("TextureFrame")
 
@@ -36,6 +41,12 @@ func disable():
 	set_enabled(false)
 	return self
 	
+func select():
+	emit_signal("selected", self)
+	
+func deselect():
+	emit_signal("deselected", self)
+	
 func _ready():
 	var material = CanvasItemMaterial.new()
 	material.set_shader(grayscaleMaterialShader)
@@ -50,3 +61,12 @@ func set_card_type(newcardtype):
 	card_type = newcardtype
 	update_state()
 	return self
+
+func _on_Button_pressed():
+	if enabled:
+		game.set_selected_card(self)
+
+func use():
+	disable()
+	yield(game.wait(cooldown), "timeout")
+	enable()

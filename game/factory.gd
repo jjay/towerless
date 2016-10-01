@@ -24,5 +24,3 @@ func spawn_creep():
 	var creep = Creep.instance()
 	get_parent().add_child(path)
 	path.add_child(creep)
-
-

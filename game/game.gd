@@ -1,6 +1,19 @@
 
 extends Node
 
+var selected_card = null setget set_selected_card
+
+func set_selected_card(newcard):
+	if selected_card != null:
+		selected_card.deselect()
+
+	if newcard == null:
+		return
+
+	selected_card = newcard
+	selected_card.select()
+
+
 func wait(time):
 	var timer = Timer.new()
 	add_child(timer)
@@ -9,5 +22,3 @@ func wait(time):
 	timer.set_wait_time(time)
 	timer.start()
 	return timer
-
-
