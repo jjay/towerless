@@ -9,7 +9,7 @@
 
 transform/pos = Vector2( 299.568, 78.3328 )
 script/script = ExtResource( 2 )
-crip_delay = 0.5
+crip_delay = 1.0
 wave_size = 4.0
 wave_delay = 10.0
 

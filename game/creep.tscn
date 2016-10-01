@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://crip.gd" type="Script" id=1]
+[ext_resource path="res://creep.gd" type="Script" id=1]
 [ext_resource path="res://characters.png" type="Texture" id=2]
+
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -29,7 +30,6 @@ weapon_idx = 0
 [node name="sprites" type="Node2D" parent="."]
 
 material/material = SubResource( 1 )
-transform/pos = Vector2( 1.16258, -16.9405 )
 transform/scale = Vector2( 2, 2 )
 
 [node name="body" type="Sprite" parent="sprites"]

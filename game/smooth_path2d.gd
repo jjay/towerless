@@ -1,7 +1,7 @@
 tool
 extends Path2D
 
-const POINT_SCATTER = 10
+const POINT_SCATTER = 15
 
 func _ready():
 	var old_curve = get_curve()
@@ -34,6 +34,6 @@ func _ready():
 		var out_vec = Vector2(curr.distance_to(next)*0.3,0)
 		var in_vec = Vector2(curr.distance_to(prev)*0.3,0)
 		curve.set_point_out(idx, out_vec.rotated(angle))
-		curve.set_point_in(idx, out_vec.rotated(angle+PI))
+		curve.set_point_in(idx, in_vec.rotated(angle+PI))
 
 

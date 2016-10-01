@@ -21,7 +21,8 @@ export var weapon_idx = 0 setget set_weapon_idx
 
 
 func _ready():
-	set_process(true)
+	if !get_tree().is_editor_hint():
+		set_process(true)
 func set_body_idx(idx):
 	body_idx = idx
 	if has_node("sprites/body"):
@@ -77,7 +78,6 @@ func set_idx(node, rects, idx):
 						frame_y += y
 						idx = -1
 						break
-		print("Frame: ", frame_x, ", ", frame_y)
 		var frame = frame_y * node.get_hframes() + frame_x
 		node.set_frame(frame)
 					
