@@ -1,0 +1,19 @@
+[gd_scene format=1]
+
+[node name="factory" type="Node2D"]
+
+[node name="polygon" type="Polygon2D" parent="."]
+
+polygon = Vector2Array( -20.5378, -7.20001, -0.790985, -34.4591, 19.5997, -9.56104, 14.8776, -10.4196, 15.0923, 17.6981, -11.5229, 17.4835, -12.5961, -9.77568 )
+uv = Vector2Array(  )
+color = Color( 0, 0.530548, 0.714844, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+
