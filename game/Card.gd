@@ -2,6 +2,8 @@ tool
 
 extends Control
 
+const grayscaleMaterialShader = preload('GrayscaleMaterialShader.tres')
+
 const HEALTH = 'health'
 const ATTACK = 'attack'
 const DEFENCE = 'defence'
@@ -28,11 +30,16 @@ func update_state():
 
 func enable():
 	set_enabled(true)
+	return self
 
 func disable():
 	set_enabled(false)
-
+	return self
+	
 func _ready():
+	var material = CanvasItemMaterial.new()
+	material.set_shader(grayscaleMaterialShader)
+	texture_frame.set_material(material)
 	update_state()
 
 func set_enabled(newenabled):
@@ -42,3 +49,4 @@ func set_enabled(newenabled):
 func set_card_type(newcardtype):
 	card_type = newcardtype
 	update_state()
+	return self
