@@ -14,9 +14,18 @@ const CARD_MARGIN = 9
 func card_appeared(card):
 	check_match()
 
+func remove_card(card):
+	var index = cards.find(card)
+	if index >= 0:
+		cards.remove(index)
+		game.card_removed(card)
+		var parent = card.get_parent()
+		parent.free()
+		for i in range(cards.size()):
+			fix_card_position(i)
+
 func card_disappeared(card):
-	var parent = card.get_parent()
-	parent.free()
+	remove_card(card)
 	check_match()
 	
 func card_selected(card):
@@ -46,12 +55,16 @@ func emit_card():
 	card.connect('appeared', self, "card_appeared")
 	card.connect('disappeared', self, "card_disappeared")
 	
+func fix_card_position(idx):
+	var card = cards[idx]
+	var pos = calculate_card_pos(idx)
+	var cardWrapper = card.get_parent()
+	cardWrapper.set_pos(pos)
+
 func draw_card(idx):
-	print('draw')
 	var cardWrapper = Node2D.new()
 	var card = cards[idx]
 	var pos = calculate_card_pos(idx)
-	print(pos)
 	cardWrapper.set_pos(pos)
 	cardWrapper.add_child(card)
 	card.set_owner(cardWrapper)
@@ -81,9 +94,7 @@ func check_match():
 func match(index):
 	print('starting', index)
 	cards[index+1].disappear()
-	cards.remove(index+1)
 	cards[index+1].disappear()
-	cards.remove(index+1)
 	cards[index].upgrade()
 
 func _ready():

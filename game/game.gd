@@ -16,6 +16,9 @@ func set_selected_card(newcard):
 	selected_card = newcard
 	selected_card.select()
 
+func card_removed(card):
+	if selected_card == card:
+		selected_card = null
 
 func wait(time):
 	var timer = Timer.new()

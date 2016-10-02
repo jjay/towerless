@@ -5,7 +5,7 @@
 
 [node name="TouchscreenButton" type="TouchScreenButton"]
 
-transform/pos = Vector2( -70, -70 )
+transform/pos = Vector2( -20, -12 )
 normal = ExtResource( 1 )
 pressed = null
 bitmask = null

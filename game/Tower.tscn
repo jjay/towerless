@@ -5,6 +5,7 @@
 
 [node name="TouchScreenButton" type="TouchScreenButton"]
 
+transform/pos = Vector2( -61, -39 )
 normal = ExtResource( 1 )
 pressed = null
 bitmask = null
@@ -12,5 +13,14 @@ passby_press = false
 action = ""
 visibility_mode = 0
 script/script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( 7.08304, 32.9165, 17.6238, 20.2675, 34.7526, 11.0443, 60.5776, 3.92929, 82.1862, 1.82113, 109.065, 5.24689, 131.728, 12.6255, 152.283, 26.8555, 158.08, 38.9774, 159.134, 57.1603, 144.377, 79.0325, 118.552, 90.3638, 93.2541, 96.1613, 66.9021, 95.1072, 45.0299, 91.1544, 25.2659, 82.1947, 8.66416, 66.9106, 1.02208, 51.3629 )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+[connection signal="pressed" from="." to="." method="_on_TouchScreenButton_pressed"]
 
 

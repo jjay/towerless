@@ -21,6 +21,7 @@ signal deselected(card)
 signal appeared(card)
 signal disappeared(card)
 
+
 var textures = {
 	HEALTH: load('res://assets/health.png'),
 	ATTACK: load('res://assets/sword.png'),
@@ -28,6 +29,24 @@ var textures = {
 	SPEED: load('res://assets/wind.png'),
 	FIREBALL: load('res://assets/wind.png'),
 }
+
+func get_effects():
+	var effects = {}
+	effects[HEALTH] = 0
+	effects[DEFENCE] = 0
+	effects[SPEED] = 0
+	effects[ATTACK] = 0
+	if card_type == HEALTH:
+		effects[HEALTH] += 10 * level
+	if card_type == DEFENCE:
+		effects[DEFENCE] += 10 * level
+	if card_type == SPEED:
+		effects[SPEED] += 10 * level
+	if card_type == ATTACK:
+		effects[ATTACK] += 10 * level
+	if card_type == FIREBALL:
+		effects[HEALTH] += -10 * level		
+	return effects
 
 func update_state():
 	var material = get_material()
@@ -71,9 +90,7 @@ func _on_Button_pressed():
 		game.set_selected_card(self)
 
 func use():
-	disable()
-	yield(game.wait(cooldown), "timeout")
-	enable()
+	disappear()
 	
 func random():
 	var randomIndex = randi() % types.size()
