@@ -41,5 +41,3 @@ func spawn_creep(curve):
 	creep.team = team
 	get_parent().add_child(path)
 	path.add_child(creep)
-
-

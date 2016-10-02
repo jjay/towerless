@@ -1,6 +1,6 @@
 tool
 
-extends Control
+extends TouchScreenButton
 
 const grayscaleMaterialShader = preload('shaders/GrayscaleMaterialShader.tres')
 
@@ -8,25 +8,32 @@ const HEALTH = 'health'
 const ATTACK = 'attack'
 const DEFENCE = 'defence'
 const SPEED = 'speed'
-
-export(String, "health", "attack", "defence", "speed") var card_type = HEALTH setget set_card_type
+const FIREBALL = 'fireball'
+const types = [HEALTH, ATTACK, DEFENCE, SPEED]
+var cooldown = 30
+var level = 1
+var current_animation = null
+export(String, "health", "attack", "defence", "speed", 'fireball') var card_type = HEALTH setget set_card_type
 export var enabled = true setget set_enabled
 
-onready var texture_frame = get_node("TextureFrame")
+signal selected(card)
+signal deselected(card)
+signal appeared(card)
+signal disappeared(card)
 
 var textures = {
-	HEALTH: load('res://assets/blue.png'),
-	ATTACK: load('res://assets/green.png'),
-	DEFENCE: load('res://assets/orange.png'),
-	SPEED: load('res://assets/purp.png'),
+	HEALTH: load('res://assets/health.png'),
+	ATTACK: load('res://assets/sword.png'),
+	DEFENCE: load('res://assets/protect.png'),
+	SPEED: load('res://assets/wind.png'),
+	FIREBALL: load('res://assets/wind.png'),
 }
 
 func update_state():
-	if texture_frame == null:
-		return
-	
-	texture_frame.get_material().set_shader_param('grayscale', not enabled)
-	texture_frame.set_texture(textures[card_type])
+	var material = get_material()
+	if material != null:
+		material.set_shader_param('grayscale', not enabled)
+	set_texture(textures[card_type])
 
 func enable():
 	set_enabled(true)
@@ -36,11 +43,19 @@ func disable():
 	set_enabled(false)
 	return self
 	
+func select():
+	emit_signal("selected", self)
+	
+func deselect():
+	emit_signal("deselected", self)
+	
 func _ready():
+	randomize()
 	var material = CanvasItemMaterial.new()
 	material.set_shader(grayscaleMaterialShader)
-	texture_frame.set_material(material)
+	set_material(material)
 	update_state()
+	get_node("AnimationPlayer").connect("finished", self, "animation_finished")
 
 func set_enabled(newenabled):
 	enabled = newenabled
@@ -50,3 +65,38 @@ func set_card_type(newcardtype):
 	card_type = newcardtype
 	update_state()
 	return self
+
+func _on_Button_pressed():
+	if enabled:
+		game.set_selected_card(self)
+
+func use():
+	disable()
+	yield(game.wait(cooldown), "timeout")
+	enable()
+	
+func random():
+	var randomIndex = randi() % types.size()
+	self.set_card_type(types[randomIndex])
+
+func appear():
+	set_pos(Vector2(0, 140))
+	current_animation = "popup"
+	get_node("AnimationPlayer").play(current_animation)
+	
+	
+func animation_finished():
+	if current_animation == "popup":
+		emit_signal("appeared", self)
+	elif current_animation == "disappear":
+		emit_signal("disappeared", self)
+
+func upgrade():
+	level += 1
+
+func disappear():
+	var player = get_node("AnimationPlayer")
+	player.connect("finished", self, "destroy")
+	current_animation = "disappear"
+	player.play(current_animation)
+	
