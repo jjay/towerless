@@ -1,6 +1,9 @@
 
 extends Node
 
+func _ready():
+	randomize()
+	
 func wait(time):
 	var timer = Timer.new()
 	add_child(timer)
@@ -9,5 +12,8 @@ func wait(time):
 	timer.set_wait_time(time)
 	timer.start()
 	return timer
+	
+func pick_random(list):
+	return list[int(list.size()*randf())]
 
 

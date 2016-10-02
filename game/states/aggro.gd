@@ -27,5 +27,5 @@ func process(delta):
 		var duration = animator.get_animation(anim_name).get_length()
 		animator.set_speed(duration/creep.attack_delay)
 		creep.get_node("animator").play(anim_name)
-		game.wait(0.7).connect("timeout", target, "take_damage", [creep.damage])
+		game.wait(0.5 + 0.1*randf()).connect("timeout", target, "take_damage", [creep.damage])
 		next_damage =	creep.attack_delay

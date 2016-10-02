@@ -10,11 +10,12 @@ func _ready():
 		
 	var curve = Curve2D.new()
 	set_curve(curve)
-		
+	
 	for idx in range(old_curve.get_point_count()):
 		var curr = old_curve.get_point_pos(idx)
-		if idx > 0 && idx < old_curve.get_point_count() - 1:
-			curr += Vector2(rand_range(-POINT_SCATTER,POINT_SCATTER), rand_range(-POINT_SCATTER,POINT_SCATTER))
+		if !get_tree().is_editor_hint():
+			if idx > 0 && idx < old_curve.get_point_count() - 1:
+				curr += Vector2(rand_range(-POINT_SCATTER,POINT_SCATTER), rand_range(-POINT_SCATTER,POINT_SCATTER))
 		curve.add_point(curr)
 	
 	for idx in range(curve.get_point_count()):

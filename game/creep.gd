@@ -22,9 +22,10 @@ const RECT_SHIELDS = [Rect2(33, 0, 8, 9)]
 const RECT_WEAPONS = [Rect2(42,0, 10, 10), Rect2(52, 0, 2, 5)]
 
 export (int, "Top", "Bot") var team = TEAM_TOP
-export var speed = 30
+export var speed = 30 
 export var damage = 10
-export var health = 100
+
+export var max_health = 100
 export var attack_delay = 1.5
 export var body_radius = 30.0 setget set_body_radius
 export var aggro_radius = 30.0 setget set_aggro_radius
@@ -39,12 +40,14 @@ export var weapon_idx = 0 setget set_weapon_idx
 onready var aggro = get_node("aggro")
 onready var body = get_node("body")
 
+var health
 var in_aggro_range = {}
 var attacker_positions = {}
 var state = null
 
 func _ready():
 	if !get_tree().is_editor_hint():
+		health = max_health
 		if team == TEAM_BOT:
 			set_unit_offset(0.999)
 			get_node("tile").set_color(Color("62eb0000"))
@@ -54,8 +57,7 @@ func _ready():
 		set_process(true)
 		aggro.connect("area_enter", self, "on_area_enter")
 		aggro.connect("area_exit", self, "on_area_exit")
-		
-	
+
 		change_state(MoveState)
 		
 func set_body_idx(idx):
@@ -140,7 +142,7 @@ func on_area_exit(body):
 	if in_aggro_range.has(body.get_parent()):
 		in_aggro_range.erase(body.get_parent())
 func take_damage(amount):
-	health -= amount
+	health -= amount + int(amount*0.2*randf())
 	if health <= 0:
 		emit_signal("die")
 		get_parent().queue_free()
@@ -159,3 +161,4 @@ func find_attacker_position(attacker):
 		if good_position:
 			attacker_positions[attacker] = pos
 			return pos + delta
+	return delta + Vector2(1,0)
